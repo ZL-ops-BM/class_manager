@@ -1,0 +1,19 @@
+{
+  "name": "班级管家 · 高中班主任管理系统",
+  "short_name": "班级管家",
+  "description": "班级座位、考勤、积分一体化管理",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F3F4F6",
+  "theme_color": "#2563EB",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
