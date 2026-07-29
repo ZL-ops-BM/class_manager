@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#2563EB" />
+  <title>班级管家 · 高中班主任管理系统</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%AB%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- 顶部标题栏 -->
+    <header class="topbar" id="topbar">
+      <div class="topbar-inner">
+        <span class="topbar-back hidden" id="topbarBack">‹</span>
+        <h1 class="topbar-title" id="topbarTitle">班级管家</h1>
+        <span class="topbar-action" id="topbarAction"></span>
+      </div>
+    </header>
+
+    <!-- 视图容器 -->
+    <main id="view" class="view"></main>
+
+    <!-- 底部导航 -->
+    <nav class="tabbar" id="tabbar">
+      <a href="#/dashboard" class="tab" data-tab="dashboard">
+        <span class="tab-icon">🏠</span><span class="tab-label">首页</span>
+      </a>
+      <a href="#/students" class="tab" data-tab="students">
+        <span class="tab-icon">👥</span><span class="tab-label">学生</span>
+      </a>
+      <a href="#/attendance" class="tab" data-tab="attendance">
+        <span class="tab-icon">📋</span><span class="tab-label">考勤</span>
+      </a>
+      <a href="#/points" class="tab" data-tab="points">
+        <span class="tab-icon">⭐</span><span class="tab-label">积分</span>
+      </a>
+      <a href="#/more" class="tab" data-tab="more">
+        <span class="tab-icon">🧩</span><span class="tab-label">更多</span>
+      </a>
+    </nav>
+
+    <!-- 全局弹层 -->
+    <div class="modal-mask hidden" id="modalMask">
+      <div class="modal" id="modalBox"></div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast"></div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
