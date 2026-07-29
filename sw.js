@@ -1,5 +1,7 @@
 // 班级管家 Service Worker —— 缓存应用外壳，实现离线可用与秒开
-const CACHE = 'class-manager-v1';
+// 注意：每次修改静态资源（js/css）后，请把下面的版本号 +1，
+// 否则旧缓存不会被清掉，页面会一直显示旧内容。
+const CACHE = 'class-manager-v3';
 
 // 应用外壳：首次访问后即被缓存，之后断网也能打开
 const SHELL = [
@@ -31,17 +33,14 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
 
-  // 缓存优先，同时后台更新缓存（stale-while-revalidate）
+  // 网络优先，失败再回退缓存（保证改完代码刷新即可见，离线时仍可用缓存）
   event.respondWith(
-    caches.match(req).then((cached) => {
-      const network = fetch(req).then((resp) => {
-        if (resp && resp.status === 200 && resp.type === 'basic') {
-          const copy = resp.clone();
-          caches.open(CACHE).then((cache) => cache.put(req, copy));
-        }
-        return resp;
-      }).catch(() => cached);
-      return cached || network;
-    })
+    fetch(req).then((resp) => {
+      if (resp && resp.status === 200 && resp.type === 'basic') {
+        const copy = resp.clone();
+        caches.open(CACHE).then((cache) => cache.put(req, copy));
+      }
+      return resp;
+    }).catch(() => caches.match(req))
   );
 });

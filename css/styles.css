@@ -304,6 +304,48 @@ html, body {
   letter-spacing: 6px; font-weight: 600;
 }
 
+/* ===== 响应式：手机端座位表适配 =====
+   问题：360px 屏宽下，8 个座位 + 2 条 26px 过道 + 6px 间距
+   挤压每格仅 ~24px，导致 2-3 字姓名被裁成单字。
+   解决：压缩过道 / 间距 / 字号、让高宽比略高以容纳换行。 */
+@media (max-width: 480px) {
+  :root {
+    --aisle-w: 14px;          /* 原 26px：把空间让给座位列 */
+  }
+  .seat-grid  { gap: 3px; }   /* 原 6px */
+  .podium-row { gap: 3px; }
+
+  .seat-cell {
+    font-size: 10px;          /* 原 11px */
+    padding: 1px;             /* 原 2px */
+    line-height: 1.1;         /* 紧凑行高，2-3 字名可换行 */
+    aspect-ratio: 1 / 1.15;   /* 略增高以容纳换行后的 2 行字 */
+  }
+  .podium-desk {
+    font-size: 11px;          /* 原 12px */
+    letter-spacing: 3px;      /* 原 6px，避免讲台文字撑宽 */
+  }
+  .aisle {
+    font-size: 10px;          /* 原 12px */
+    letter-spacing: 4px;
+  }
+}
+
+/* 极小屏（iPhone SE 等 ≤360px）：进一步压缩 */
+@media (max-width: 360px) {
+  :root { --aisle-w: 10px; }
+  .seat-grid  { gap: 2px; }
+  .podium-row { gap: 2px; }
+  .seat-cell {
+    font-size: 9px;
+    padding: 1px;
+    line-height: 1.05;
+    aspect-ratio: 1 / 1.1;
+  }
+  .podium-desk { font-size: 10px; letter-spacing: 2px; }
+  .aisle       { font-size: 9px;  letter-spacing: 3px; }
+}
+
 /* ===== 随机点名 ===== */
 .roll-stage {
   text-align: center; padding: 30px 0 20px;
