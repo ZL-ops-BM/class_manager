@@ -18,16 +18,19 @@ function draw(view) {
 
   const cells = [];
   for (let r = 0; r < rows; r++) {
-    let c = 0;
+    let col = 1;          // 1-based 物理网格列（含过道占位）
+    let c = 0;            // 0-based 逻辑座位列（数据 key 用）
     for (let g = 0; g < groups.length; g++) {
       if (g > 0) {
-        // 仅首行插入跨整列高度的过道（grid-row span = 全部排数）
-        if (r === 0) cells.push(`<div class="aisle" style="grid-row:span ${rows};">过道</div>`);
+        // 仅首行插入跨整列高度的过道；始终占第 col 列，避免后续行座位错位
+        if (r === 0) cells.push(`<div class="aisle" style="grid-column:${col};grid-row:span ${rows};">过道</div>`);
+        col++;
       }
       for (let i = 0; i < groups[g]; i++) {
         const key = `${r}-${c}`;
         const s = map[key] ? store.getStudent(map[key]) : null;
-        cells.push(`<div class="seat-cell ${s ? 'filled' : ''}" data-key="${key}">${s ? esc(s.name) : '空'}</div>`);
+        cells.push(`<div class="seat-cell ${s ? 'filled' : ''}" style="grid-column:${col};" data-key="${key}">${s ? esc(s.name) : '空'}</div>`);
+        col++;
         c++;
       }
     }
