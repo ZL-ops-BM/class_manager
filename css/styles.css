@@ -260,7 +260,10 @@ html, body {
 .rank-no { width: 26px; text-align: center; font-weight: 700; color: var(--text-2); font-size: 14px; }
 
 /* ===== 座位表 ===== */
+:root { --aisle-w: 16px; }
 .seat-grid { display: grid; gap: 6px; margin-top: 10px; }
+/* 过道：固定宽度的透明占位，分隔左/中/右座位区块 */
+.aisle { pointer-events: none; }
 .seat-cell {
   aspect-ratio: 1 / 0.85; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
@@ -273,11 +276,16 @@ html, body {
   background: #EEF2FF; color: var(--primary);
   border: 1.5px solid #C7D2FE; font-weight: 600;
 }
+.seat-cell:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); box-shadow: 0 2px 6px rgba(79,70,229,.15); }
 .seat-cell:active { transform: scale(.92); }
+/* 讲台行：与下方座位网格同模板对齐 */
+.podium-row { display: grid; gap: 6px; align-items: stretch; margin-bottom: 10px; }
+.podium-row .podium-desk { margin-bottom: 0; grid-row: 1; }
+.podium-row .podium-side { aspect-ratio: auto; min-height: 34px; }
 .podium-desk {
   text-align: center; background: var(--primary-grad); color: #fff;
   border-radius: 8px; padding: 6px; font-size: 12px; margin-bottom: 8px;
-  letter-spacing: 6px;
+  letter-spacing: 6px; font-weight: 600;
 }
 
 /* ===== 随机点名 ===== */

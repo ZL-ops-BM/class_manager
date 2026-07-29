@@ -8,24 +8,43 @@ export function renderSeating(view) {
 
 function draw(view) {
   const seating = store.getSeating();
-  const { rows, cols, map } = seating;
+  const { rows, map } = seating;
   const seatedIds = new Set(Object.values(map));
   const unseated = store.getStudents().filter(s => !seatedIds.has(s.id));
 
+  // 列结构固定为 2-4-2：左2列 / 过道 / 中4列 / 过道 / 右2列
+  const groups = [2, 4, 2];
+  const totalCols = groups.reduce((a, b) => a + b, 0);
+  const aisleAfter = new Set();
+  let acc = 0;
+  for (let i = 0; i < groups.length - 1; i++) { acc += groups[i]; aisleAfter.add(acc); }
+  const template = groups.map(n => `repeat(${n},1fr)`).join(' var(--aisle-w,16px) ');
+
   const cells = [];
   for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const key = `${r}-${c}`;
-      const s = map[key] ? store.getStudent(map[key]) : null;
-      cells.push(`<div class="seat-cell ${s ? 'filled' : ''}" data-key="${key}">${s ? esc(s.name) : '空'}</div>`);
+    for (let c = 0; c < totalCols; c++) {
+      if (aisleAfter.has(c)) {
+        cells.push(`<div class="aisle"></div>`);
+      } else {
+        const key = `${r}-${c}`;
+        const s = map[key] ? store.getStudent(map[key]) : null;
+        cells.push(`<div class="seat-cell ${s ? 'filled' : ''}" data-key="${key}">${s ? esc(s.name) : '空'}</div>`);
+      }
     }
   }
 
+  const leftS = seating.map['p-l'] ? store.getStudent(seating.map['p-l']) : null;
+  const rightS = seating.map['p-r'] ? store.getStudent(seating.map['p-r']) : null;
+
   view.innerHTML = `
     <div class="card">
-      <div class="card-title">🪑 座位表 <span class="link" id="sizeBtn">调整行列</span></div>
-      <div class="podium-desk">讲 台</div>
-      <div class="seat-grid" style="grid-template-columns:repeat(${cols},1fr);">
+      <div class="card-title">🪑 座位表 <span class="link" id="sizeBtn">调整排数</span></div>
+      <div class="podium-row" style="grid-template-columns:${template};">
+        <div class="seat-cell podium-side ${leftS ? 'filled' : ''}" style="grid-column:1/3" data-key="p-l">${leftS ? esc(leftS.name) : '空'}</div>
+        <div class="podium-desk" style="grid-column:3/9">讲 台</div>
+        <div class="seat-cell podium-side ${rightS ? 'filled' : ''}" style="grid-column:9/11" data-key="p-r">${rightS ? esc(rightS.name) : '空'}</div>
+      </div>
+      <div class="seat-grid" style="grid-template-columns:${template};">
         ${cells.join('')}
       </div>
       <div style="font-size:12px;color:var(--text-2);margin-top:10px;text-align:center;">点击座位可安排 / 更换 / 清空学生</div>
@@ -51,9 +70,15 @@ function showAssign(view, key) {
   const seatedIds = new Set(Object.values(seating.map));
   const candidates = store.getStudents().filter(s => !seatedIds.has(s.id) || s.id === currentId);
 
-  const [r, c] = key.split('-');
+  let title;
+  if (key === 'p-l') title = '讲台左侧座位';
+  else if (key === 'p-r') title = '讲台右侧座位';
+  else {
+    const [r, c] = key.split('-');
+    title = `第 ${Number(r) + 1} 排 · 第 ${Number(c) + 1} 座`;
+  }
   const box = openModal(`
-    <div class="modal-title">第 ${Number(r) + 1} 排 · 第 ${Number(c) + 1} 座</div>
+    <div class="modal-title">${title}</div>
     ${currentId ? `<button class="btn btn-danger btn-block" id="clearSeat" style="margin-bottom:12px;">清空该座位（当前：${esc(store.getStudent(currentId)?.name || '')}）</button>` : ''}
     <div class="chips" style="flex-wrap:wrap;">
       ${candidates.length ? candidates.map(s => `
@@ -79,20 +104,16 @@ function showAssign(view, key) {
 }
 
 function showSize(view) {
-  const { rows, cols } = store.getSeating();
+  const { rows } = store.getSeating();
   const box = openModal(`
-    <div class="modal-title">调整座位行列</div>
-    <div style="display:flex;gap:10px;">
-      <div class="form-group" style="flex:1;"><label class="form-label">排数</label><input class="form-input" type="number" id="szRows" value="${rows}" min="1" max="12" /></div>
-      <div class="form-group" style="flex:1;"><label class="form-label">每排座位</label><input class="form-input" type="number" id="szCols" value="${cols}" min="1" max="10" /></div>
-    </div>
-    <p style="font-size:12px;color:var(--text-2);margin-bottom:12px;">缩小行列时，超出范围的座位安排会被清除。</p>
+    <div class="modal-title">调整座位排数</div>
+    <div class="form-group"><label class="form-label">排数（列固定为 2-4-2 共 8 列）</label><input class="form-input" type="number" id="szRows" value="${rows}" min="1" max="12" /></div>
+    <p style="font-size:12px;color:var(--text-2);margin-bottom:12px;">缩小排数时，超出范围的座位安排会被清除。</p>
     <button class="btn btn-primary btn-block" id="szSave">保存</button>
   `);
   box.querySelector('#szSave').onclick = () => {
     const r = Math.max(1, Math.min(12, Number(box.querySelector('#szRows').value) || 1));
-    const c = Math.max(1, Math.min(10, Number(box.querySelector('#szCols').value) || 1));
-    store.setSeatingSize(r, c);
+    store.setSeatingSize(r, 8);
     toast('已调整');
     closeModal();
     draw(view);
