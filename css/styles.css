@@ -260,10 +260,26 @@ html, body {
 .rank-no { width: 26px; text-align: center; font-weight: 700; color: var(--text-2); font-size: 14px; }
 
 /* ===== 座位表 ===== */
-:root { --aisle-w: 16px; }
+:root { --aisle-w: 26px; }
 .seat-grid { display: grid; gap: 6px; margin-top: 10px; }
-/* 过道：固定宽度的透明占位，分隔左/中/右座位区块 */
-.aisle { pointer-events: none; }
+/* 过道：纵向独立轨道，垂直显示「过道」字样，不接受点击 */
+.aisle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #9CA3AF;
+  letter-spacing: 8px;
+  writing-mode: vertical-rl;
+  pointer-events: none;
+  user-select: none;
+  border-radius: 4px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(156,163,175,.08) 0 6px,
+    transparent 6px 12px
+  );
+}
 .seat-cell {
   aspect-ratio: 1 / 0.85; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;

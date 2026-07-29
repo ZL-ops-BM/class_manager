@@ -12,23 +12,23 @@ function draw(view) {
   const seatedIds = new Set(Object.values(map));
   const unseated = store.getStudents().filter(s => !seatedIds.has(s.id));
 
-  // 列结构固定为 2-4-2：左2列 / 过道 / 中4列 / 过道 / 右2列
+  // 列结构固定为 2-4-2：左2列 / 过道 / 中4列 / 过道 / 右2列，共 8 个座位列 + 2 条过道
   const groups = [2, 4, 2];
-  const totalCols = groups.reduce((a, b) => a + b, 0);
-  const aisleAfter = new Set();
-  let acc = 0;
-  for (let i = 0; i < groups.length - 1; i++) { acc += groups[i]; aisleAfter.add(acc); }
-  const template = groups.map(n => `repeat(${n},1fr)`).join(' var(--aisle-w,16px) ');
+  const template = groups.map(n => `repeat(${n},1fr)`).join(' var(--aisle-w) ');
 
   const cells = [];
   for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < totalCols; c++) {
-      if (aisleAfter.has(c)) {
-        cells.push(`<div class="aisle"></div>`);
-      } else {
+    let c = 0;
+    for (let g = 0; g < groups.length; g++) {
+      if (g > 0) {
+        // 仅首行插入跨整列高度的过道（grid-row span = 全部排数）
+        if (r === 0) cells.push(`<div class="aisle" style="grid-row:span ${rows};">过道</div>`);
+      }
+      for (let i = 0; i < groups[g]; i++) {
         const key = `${r}-${c}`;
         const s = map[key] ? store.getStudent(map[key]) : null;
         cells.push(`<div class="seat-cell ${s ? 'filled' : ''}" data-key="${key}">${s ? esc(s.name) : '空'}</div>`);
+        c++;
       }
     }
   }
