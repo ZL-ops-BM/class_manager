@@ -1,26 +1,27 @@
 // 成绩管理：考试列表 / 成绩录入 / 统计排名 / 学生趋势
 import * as store from '../store.js';
 import { toast, openModal, closeModal, confirmDialog, esc } from '../ui.js';
+import { icon } from '../icons.js';
 import { navigate } from '../router.js';
 
 export function renderGrades(view) {
   const exams = store.getExams();
   view.innerHTML = `
     <div class="card">
-      <div class="card-title">📊 考试列表 <span class="link" id="addExam">＋ 新建考试</span></div>
+      <div class="card-title"><span class="title-main">${icon('bar-chart')}考试列表</span><span class="link" id="addExam">${icon('plus', { size: 16 })} 新建考试</span></div>
       ${exams.length ? exams.map(e => `
         <div class="list-item" data-id="${e.id}" style="cursor:pointer;">
-          <div class="avatar" style="border-radius:12px;background:linear-gradient(135deg,#F59E0B,#EF4444);">📝</div>
+          <div class="avatar" style="border-radius:12px;background:linear-gradient(135deg,#F59E0B,#EF4444);">${icon('file-text', { size: 22 })}</div>
           <div style="flex:1;">
             <div style="font-weight:600;font-size:15px;">${esc(e.name)}</div>
             <div style="font-size:12px;color:var(--text-2);margin-top:2px;">${esc(e.date)} · ${e.subjects.length} 科目</div>
           </div>
-          <span style="color:#D1D5DB;font-size:18px;">›</span>
-        </div>`).join('') : '<div class="empty"><div class="empty-icon">📊</div>暂无考试，点击右上角新建</div>'}
+          <span style="color:var(--text-3);font-size:18px;">›</span>
+        </div>`).join('') : `<div class="empty"><div class="empty-icon">${icon('bar-chart')}</div>暂无考试，点击右上角新建</div>`}
     </div>
 
     <div class="card">
-      <div class="card-title">📈 学生成绩趋势</div>
+      <div class="card-title"><span class="title-main">${icon('trending-up')}学生成绩趋势</span></div>
       <select class="form-select" id="trendStu">
         <option value="">选择学生查看总分趋势</option>
         ${store.getStudents().map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('')}
@@ -59,7 +60,7 @@ function renderTrend(sid) {
             <span>${esc(r.name)}</span>
             <span style="color:var(--text-2);">总分 <b style="color:var(--primary);">${r.total}</b> · 班级第 ${r.rank} 名</span>
           </div>
-          <div style="height:10px;background:#F3F4F6;border-radius:999px;overflow:hidden;">
+          <div style="height:10px;background:var(--surface-3);border-radius:999px;overflow:hidden;">
             <div style="height:100%;width:${Math.round(r.total / max * 100)}%;background:var(--primary-grad);border-radius:999px;transition:width .4s;"></div>
           </div>
         </div>`).join('')}
@@ -105,7 +106,7 @@ export function renderExamDetail(view, examId) {
     </div>
 
     <div style="display:flex;gap:10px;margin-bottom:12px;">
-      <button class="btn btn-primary btn-block" id="inputBtn">✏️ 录入 / 修改成绩</button>
+      <button class="btn btn-primary btn-block" id="inputBtn">${icon('pencil', { size: 18 })} 录入 / 修改成绩</button>
       <button class="btn btn-danger" id="delExam" style="min-width:90px;">删除考试</button>
     </div>
 
@@ -118,7 +119,7 @@ export function renderExamDetail(view, examId) {
             ${stats.map(r => `
               <tr>
                 <td><b>${esc(r.student.name)}</b></td>
-                <td>${r.rank <= 3 ? ['🥇', '🥈', '🥉'][r.rank - 1] : r.rank}</td>
+                <td><span class="rank-no rank-tier-${r.rank <= 3 ? r.rank : 'normal'}">${r.rank}</span></td>
                 ${exam.subjects.map(s => `<td>${r.scores[s] ?? '—'}</td>`).join('')}
                 <td><b style="color:var(--primary);">${r.total}</b></td>
                 <td>${r.avg.toFixed(1)}</td>
@@ -143,7 +144,7 @@ function showScoreInput(view, exam) {
     <div class="modal-title">录入成绩 · ${esc(exam.name)}</div>
     <div style="max-height:52vh;overflow-y:auto;">
       ${students.map(s => `
-        <div style="margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #F3F4F6;">
+        <div style="margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--surface-3);">
           <div style="font-weight:600;font-size:14px;margin-bottom:6px;">${esc(s.name)}</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
             ${exam.subjects.map(sub => `

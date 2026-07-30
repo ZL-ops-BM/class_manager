@@ -1,6 +1,7 @@
 // 积分评价：排行榜 / 评价 / 规则管理 / 流水
 import * as store from '../store.js';
 import { toast, openModal, closeModal, confirmDialog, esc, avatarHtml } from '../ui.js';
+import { icon } from '../icons.js';
 
 export function renderPoints(view) {
   draw(view);
@@ -14,12 +15,12 @@ function draw(view) {
 
   view.innerHTML = `
     <div class="card">
-      <div class="card-title">🏆 积分排行榜</div>
+      <div class="card-title"><span class="title-main">${icon('trophy')}积分排行榜</span></div>
       ${ranking.length >= 3 ? `
       <div class="rank-podium">
-        ${podium(top3[1], 'second', '🥈')}
-        ${podium(top3[0], 'first', '🥇')}
-        ${podium(top3[2], 'third', '🥉')}
+        ${podium(top3[1], 'second', 2)}
+        ${podium(top3[0], 'first', 1)}
+        ${podium(top3[2], 'third', 3)}
       </div>` : ''}
       ${rest.map((s, i) => `
         <div class="rank-row">
@@ -31,7 +32,7 @@ function draw(view) {
     </div>
 
     <div style="display:flex;gap:10px;margin-bottom:12px;">
-      <button class="btn btn-primary btn-block" id="evalBtn">✍️ 快速评价</button>
+      <button class="btn btn-primary btn-block" id="evalBtn">${icon('pen-line', { size: 18 })} 快速评价</button>
       <button class="btn btn-ghost" id="ruleBtn" style="min-width:110px;">规则管理</button>
     </div>
 
@@ -46,7 +47,7 @@ function draw(view) {
             <div class="log-meta">${esc(l.time)}${l.note ? ' · ' + esc(l.note) : ''}</div>
           </div>
           <span class="log-score ${l.delta >= 0 ? 'plus' : 'minus'}">${l.delta >= 0 ? '+' : ''}${l.delta}</span>
-          <button class="btn btn-sm" data-undo="${l.id}" style="background:#F3F4F6;color:var(--text-2);margin-left:8px;">撤销</button>
+          <button class="btn btn-sm" data-undo="${l.id}" style="background:var(--surface-3);color:var(--text-2);margin-left:8px;">撤销</button>
         </div>`;
       }).join('') : '<div class="empty" style="padding:16px 0;">暂无记录</div>'}
     </div>
@@ -63,12 +64,12 @@ function draw(view) {
   });
 }
 
-function podium(s, cls, medal) {
+function podium(s, cls, rank) {
   if (!s) return '';
   return `
     <div class="podium-item ${cls}">
       ${avatarHtml(s)}
-      <span class="podium-medal">${medal}</span>
+      <span class="podium-rank rank-tier-${rank}">${rank}</span>
       <span class="podium-name">${esc(s.name)}</span>
       <span class="podium-score">${s.score} 分</span>
     </div>`;
@@ -86,7 +87,7 @@ function showEval(view) {
     </div>
     <div class="form-group"><label class="form-label">行为规则</label>
       <select class="form-select" id="evRule">
-        ${rules.map(r => `<option value="${r.id}">${r.type === 'add' ? '👍' : '👎'} ${esc(r.name)}（${r.type === 'add' ? '+' : '-'}${r.score}分）</option>`).join('')}
+        ${rules.map(r => `<option value="${r.id}">${r.type === 'add' ? '＋' : '－'} ${esc(r.name)}（${r.type === 'add' ? '+' : '-'}${r.score}分）</option>`).join('')}
       </select>
     </div>
     <div class="form-group"><label class="form-label">备注（可空）</label><input class="form-input" id="evNote" placeholder="补充说明" /></div>
@@ -121,12 +122,12 @@ function showRules(view) {
     <div style="max-height:36vh;overflow-y:auto;margin-bottom:12px;">
       ${rules.map(r => `
         <div class="log-item">
-          <div style="flex:1;font-size:14px;">${r.type === 'add' ? '👍' : '👎'} ${esc(r.name)}</div>
+          <div style="flex:1;font-size:14px;display:flex;align-items:center;gap:8px;">${icon(r.type === 'add' ? 'thumbs-up' : 'thumbs-down', { size: 18 })}<span>${esc(r.name)}</span></div>
           <span class="log-score ${r.type === 'add' ? 'plus' : 'minus'}">${r.type === 'add' ? '+' : '-'}${r.score}</span>
           <button class="btn btn-danger btn-sm" data-del="${r.id}" style="margin-left:8px;">删除</button>
         </div>`).join('')}
     </div>
-    <div style="border-top:1px solid #F3F4F6;padding-top:12px;">
+    <div style="border-top:1px solid var(--surface-3);padding-top:12px;">
       <div style="display:flex;gap:8px;margin-bottom:10px;">
         <input class="form-input" id="ruName" placeholder="规则名称" style="flex:2;" />
         <select class="form-select" id="ruType" style="flex:1;"><option value="add">加分</option><option value="sub">扣分</option></select>

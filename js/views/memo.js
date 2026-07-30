@@ -1,6 +1,7 @@
 // 班务备忘
 import * as store from '../store.js';
 import { toast, confirmDialog, esc } from '../ui.js';
+import { icon } from '../icons.js';
 
 export function renderMemo(view) {
   draw(view);
@@ -21,7 +22,7 @@ function draw(view) {
 
     <div class="card">
       <div class="card-title">待办事项（${undone.length}）</div>
-      ${undone.length ? undone.map(m => memoItem(m)).join('') : '<div class="empty" style="padding:14px 0;">全部完成，太棒了 🎉</div>'}
+      ${undone.length ? undone.map(m => memoItem(m)).join('') : `<div class="empty" style="padding:14px 0;"><div class="empty-icon">${icon('check-circle')}</div>全部完成，太棒了</div>`}
     </div>
 
     ${done.length ? `
@@ -56,11 +57,11 @@ function draw(view) {
 function memoItem(m) {
   return `
     <div class="memo-item">
-      <div class="memo-check ${m.done ? 'done' : ''}" data-id="${m.id}">✓</div>
+      <div class="memo-check ${m.done ? 'done' : ''}" data-id="${m.id}">${icon('check', { size: 14 })}</div>
       <div style="flex:1;min-width:0;">
         <div class="memo-text ${m.done ? 'done' : ''}" style="font-size:14px;">${esc(m.text)}</div>
         <div class="log-meta">${esc(m.time)}</div>
       </div>
-      <button class="btn btn-sm" data-del-memo="${m.id}" style="background:#F3F4F6;color:var(--text-2);">删除</button>
+      <button class="btn btn-sm" data-del-memo="${m.id}" style="background:var(--surface-3);color:var(--text-2);">删除</button>
     </div>`;
 }

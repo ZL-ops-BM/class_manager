@@ -1,5 +1,5 @@
 // 应用入口
-import { initStore } from './store.js';
+import { initStore, getTheme, applyTheme } from './store.js';
 import { register, startRouter } from './router.js';
 import { renderDashboard } from './views/dashboard.js';
 import { renderStudents } from './views/students.js';
@@ -13,6 +13,12 @@ import { renderMemo } from './views/memo.js';
 import { renderMore } from './views/more.js';
 
 initStore();
+applyTheme(getTheme());
+try {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (getTheme() === 'system') applyTheme('system');
+  });
+} catch (e) {}
 
 register('/dashboard', renderDashboard, { title: '班级管家' });
 register('/students', renderStudents, { title: '学生管理' });

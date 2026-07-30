@@ -1,47 +1,71 @@
 // 更多中心：子功能入口 + 数据管理 + 班级设置
 import * as store from '../store.js';
 import { toast, openModal, closeModal, confirmDialog, esc } from '../ui.js';
+import { icon } from '../icons.js';
 
 export function renderMore(view) {
   const info = store.getClassInfo();
   view.innerHTML = `
     <div class="card">
-      <div class="card-title">🧩 班务工具</div>
+      <div class="card-title"><span class="title-main">${icon('layout-grid')}班务工具</span></div>
       <div class="entry-grid cols-3">
-        <a class="entry-item" href="#/grades"><span class="entry-icon">📊</span><span class="entry-label">成绩管理</span></a>
-        <a class="entry-item" href="#/random"><span class="entry-icon">🎲</span><span class="entry-label">随机点名</span></a>
-        <a class="entry-item" href="#/duty"><span class="entry-icon">🧹</span><span class="entry-label">值日排班</span></a>
-        <a class="entry-item" href="#/seating"><span class="entry-icon">🪑</span><span class="entry-label">座位表</span></a>
-        <a class="entry-item" href="#/memo"><span class="entry-icon">📌</span><span class="entry-label">班务备忘</span></a>
-        <a class="entry-item" href="#/attendance"><span class="entry-icon">📋</span><span class="entry-label">考勤点名</span></a>
+        <a class="entry-item" href="#/grades"><span class="entry-icon">${icon('bar-chart')}</span><span class="entry-label">成绩管理</span></a>
+        <a class="entry-item" href="#/random"><span class="entry-icon">${icon('dice-5')}</span><span class="entry-label">随机点名</span></a>
+        <a class="entry-item" href="#/duty"><span class="entry-icon">${icon('broom')}</span><span class="entry-label">值日排班</span></a>
+        <a class="entry-item" href="#/seating"><span class="entry-icon">${icon('armchair')}</span><span class="entry-label">座位表</span></a>
+        <a class="entry-item" href="#/memo"><span class="entry-icon">${icon('clipboard-list')}</span><span class="entry-label">班务备忘</span></a>
+        <a class="entry-item" href="#/attendance"><span class="entry-icon">${icon('clipboard-check')}</span><span class="entry-label">考勤点名</span></a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">⚙️ 班级设置</div>
+      <div class="card-title"><span class="title-main">${icon('settings')}班级设置</span></div>
+      <div class="list-item">
+        <span>${icon('sun-moon', { size: 20 })}</span>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:600;">外观主题</div>
+          <div style="font-size:12px;color:var(--text-2);">浅色 / 深色 / 跟随系统</div>
+        </div>
+        <div class="seg theme-seg" id="themeSeg">
+          <button class="seg-btn" data-theme-opt="light">浅色</button>
+          <button class="seg-btn" data-theme-opt="dark">深色</button>
+          <button class="seg-btn" data-theme-opt="system">自动</button>
+        </div>
+      </div>
       <div class="list-item" id="editClass" style="cursor:pointer;">
-        <span style="font-size:20px;">🏫</span>
+        <span>${icon('graduation-cap', { size: 20 })}</span>
         <div style="flex:1;">
           <div style="font-size:14px;font-weight:600;">${esc(info.name)}</div>
           <div style="font-size:12px;color:var(--text-2);">班主任：${esc(info.teacher)} · 点击修改</div>
         </div>
-        <span style="color:#D1D5DB;">›</span>
+        <span style="color:var(--text-3);">›</span>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">💾 数据管理</div>
+      <div class="card-title"><span class="title-main">${icon('database')}数据管理</span></div>
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <button class="btn btn-ghost btn-block" id="exportBtn">📤 导出数据备份（JSON）</button>
-        <button class="btn btn-ghost btn-block" id="importBtn">📥 导入数据备份</button>
+        <button class="btn btn-ghost btn-block" id="exportBtn">${icon('upload', { size: 18 })} 导出数据备份（JSON）</button>
+        <button class="btn btn-ghost btn-block" id="importBtn">${icon('download', { size: 18 })} 导入数据备份</button>
         <input type="file" id="importFile" accept=".json,application/json" class="hidden" />
-        <button class="btn btn-danger btn-block" id="resetBtn">♻️ 恢复演示数据</button>
+        <button class="btn btn-danger btn-block" id="resetBtn">${icon('refresh-cw', { size: 18 })} 恢复演示数据</button>
       </div>
       <p style="font-size:12px;color:var(--text-2);margin-top:10px;line-height:1.6;">
         数据保存在本机浏览器中（localStorage），建议定期导出备份；更换手机或浏览器后可通过导入恢复。
       </p>
     </div>
   `;
+
+  const themeSeg = view.querySelector('#themeSeg');
+  const curTheme = store.getTheme();
+  themeSeg.querySelectorAll('.seg-btn').forEach(b => {
+    b.classList.toggle('is-on', b.dataset.themeOpt === curTheme);
+    b.onclick = () => {
+      store.setTheme(b.dataset.themeOpt);
+      themeSeg.querySelectorAll('.seg-btn').forEach(x => x.classList.toggle('is-on', x === b));
+      toast('已切换外观');
+    };
+  });
 
   view.querySelector('#editClass').onclick = () => {
     const box = openModal(`

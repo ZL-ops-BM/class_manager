@@ -1,6 +1,7 @@
 // 座位表：二维矩阵可视化编排
 import * as store from '../store.js';
 import { toast, openModal, closeModal, esc } from '../ui.js';
+import { icon } from '../icons.js';
 
 export function renderSeating(view) {
   draw(view);
@@ -41,7 +42,7 @@ function draw(view) {
 
   view.innerHTML = `
     <div class="card">
-      <div class="card-title">🪑 座位表 <span class="link" id="sizeBtn">调整排数</span></div>
+      <div class="card-title"><span class="title-main">${icon('armchair')}座位表</span><span class="link" id="sizeBtn">调整排数</span></div>
       <div class="podium-row" style="grid-template-columns:${template};">
         <div class="seat-cell podium-side ${leftS ? 'filled' : ''}" style="grid-column:1/3" data-key="p-l">${leftS ? esc(leftS.name) : '空'}</div>
         <div class="podium-desk" style="grid-column:3/9">讲 台</div>
@@ -56,7 +57,7 @@ function draw(view) {
     <div class="card">
       <div class="card-title">未安排座位（${unseated.length}）</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;">
-        ${unseated.length ? unseated.map(s => `<span class="duty-chip">${esc(s.name)}</span>`).join('') : '<span style="font-size:13px;color:var(--text-2);">全部学生已安排座位 ✅</span>'}
+        ${unseated.length ? unseated.map(s => `<span class="duty-chip">${esc(s.name)}</span>`).join('') : '<span style="font-size:13px;color:var(--text-2);">全部学生已安排座位 ' + icon('check-circle', { size: 14 }) + '</span>'}
       </div>
     </div>
   `;

@@ -192,3 +192,22 @@ export function resetData() {
   state = JSON.parse(JSON.stringify(seedData));
   save();
 }
+
+/* ---------- 主题偏好（与业务数据隔离持久化） ---------- */
+const THEME_KEY = 'class-manager-theme';
+
+export function getTheme() {
+  try { return localStorage.getItem(THEME_KEY) || 'system'; } catch (e) { return 'system'; }
+}
+
+export function setTheme(mode) {
+  try { localStorage.setItem(THEME_KEY, mode); } catch (e) {}
+  applyTheme(mode);
+}
+
+export function applyTheme(mode) {
+  const dark = mode === 'dark' || (mode !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', dark ? '#0F172A' : '#2563EB');
+}

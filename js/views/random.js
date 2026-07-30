@@ -1,6 +1,7 @@
 // 随机点名
 import * as store from '../store.js';
 import { esc } from '../ui.js';
+import { icon } from '../icons.js';
 
 let picked = new Set();
 let rolling = false;
@@ -23,7 +24,7 @@ function draw(view) {
         <div class="roll-name" id="rollName">？</div>
         <div class="roll-sub" id="rollSub">点击下方按钮开始随机抽选</div>
       </div>
-      <button class="btn btn-primary btn-block" id="rollBtn" style="font-size:17px;min-height:50px;">🎲 开始点名</button>
+      <button class="btn btn-primary btn-block" id="rollBtn" style="font-size:17px;min-height:50px;">${icon('dice-5', { size: 22 })} 开始点名</button>
       <div style="display:flex;gap:10px;margin-top:10px;">
         <label style="flex:1;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);">
           <input type="checkbox" id="skipPicked" checked style="width:16px;height:16px;" /> 不重复抽取
@@ -37,7 +38,7 @@ function draw(view) {
       <div id="pickedList" style="display:flex;flex-wrap:wrap;gap:8px;">
         ${picked.size ? [...picked].map(id => {
           const s = store.getStudent(id);
-          return s ? `<span class="duty-chip" style="background:#EEF2FF;color:var(--primary);">${esc(s.name)}</span>` : '';
+          return s ? `<span class="duty-chip" style="background:var(--primary-soft);color:var(--primary);">${esc(s.name)}</span>` : '';
         }).join('') : '<span style="font-size:13px;color:var(--text-2);">暂无</span>'}
       </div>
     </div>
@@ -62,7 +63,7 @@ function draw(view) {
     rolling = true;
     nameEl.classList.add('rolling');
     btn.textContent = '抽选中...';
-    subEl.textContent = '命运的齿轮正在转动 🎡';
+    subEl.textContent = '命运的齿轮正在转动';
     let ticks = 0;
     const maxTicks = 20 + Math.floor(Math.random() * 10);
     timer = setInterval(() => {
@@ -73,14 +74,14 @@ function draw(view) {
         clearInterval(timer);
         rolling = false;
         nameEl.classList.remove('rolling');
-        btn.textContent = '🎲 再抽一次';
+        btn.innerHTML = icon('dice-5', { size: 22 }) + ' 再抽一次';
         picked.add(s.id);
-        subEl.textContent = `🎉 抽中了「${s.name}」！`;
+        subEl.innerHTML = icon('check-circle', { size: 18 }) + ` 抽中了「${s.name}」！`;
         draw(view);
         const nn = view.querySelector('#rollName');
         nn.textContent = s.name;
-        view.querySelector('#rollSub').textContent = `🎉 抽中了「${s.name}」！`;
-        view.querySelector('#rollBtn').textContent = '🎲 再抽一次';
+        view.querySelector('#rollSub').innerHTML = icon('check-circle', { size: 18 }) + ` 抽中了「${s.name}」！`;
+        view.querySelector('#rollBtn').innerHTML = icon('dice-5', { size: 22 }) + ' 再抽一次';
       }
     }, 80);
   };

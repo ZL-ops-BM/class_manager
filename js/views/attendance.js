@@ -1,6 +1,7 @@
 // 考勤点名
 import * as store from '../store.js';
 import { toast, openModal, closeModal, esc, avatarHtml, confirmDialog } from '../ui.js';
+import { icon } from '../icons.js';
 
 const STATUS = [
   { key: 'present', label: '出勤', cls: 'on-present' },
@@ -37,7 +38,7 @@ function draw(view) {
         <div class="stat-cell"><div class="stat-num red">${count.absent}</div><div class="stat-label">缺勤</div></div>
       </div>
       <div style="text-align:center;font-size:12px;color:var(--text-2);margin-top:10px;">
-        已点名 ${marked}/${students.length} 人${marked === students.length && students.length ? ' · 点名完成 ✅' : ''}
+        已点名 ${marked}/${students.length} 人${marked === students.length && students.length ? ' · 点名完成 ' + icon('check-circle', { size: 16 }) : ''}
       </div>
     </div>
 

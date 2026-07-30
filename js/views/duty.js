@@ -1,6 +1,7 @@
 // 值日排班
 import * as store from '../store.js';
 import { toast, openModal, closeModal, esc } from '../ui.js';
+import { icon } from '../icons.js';
 
 export function renderDuty(view) {
   draw(view);
@@ -14,7 +15,7 @@ function draw(view) {
 
   view.innerHTML = `
     <div class="card">
-      <div class="card-title">🧹 本周值日安排 <span class="link" id="rotateBtn">轮换一周 ⟳</span></div>
+      <div class="card-title"><span class="title-main">${icon('broom')}本周值日安排</span><span class="link" id="rotateBtn">${icon('rotate-cw', { size: 16 })} 轮换一周</span></div>
       ${duty.groups.map((g, i) => `
         <div class="duty-day">
           <div class="duty-label ${g.day === todayName ? 'today' : ''}">
@@ -32,10 +33,9 @@ function draw(view) {
           <button class="btn btn-ghost btn-sm" data-edit="${i}">编辑</button>
         </div>`).join('')}
     </div>
-    <div class="card" style="background:#FFFBEB;box-shadow:none;">
-      <div style="font-size:13px;color:#92400E;line-height:1.7;">
-        💡 小贴士：点击「轮换一周」可将各天值日小组整体顺移一位，实现周期轮换，无需手动重排。
-      </div>
+    <div class="info-card">
+      <div class="info-title">${icon('lightbulb', { size: 16 })} 值日小贴士</div>
+      <div class="info-text">点击「轮换一周」可将各天值日小组整体顺移一位，实现周期轮换，无需手动重排。</div>
     </div>
   `;
 

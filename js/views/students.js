@@ -1,6 +1,7 @@
 // 学生档案管理
 import * as store from '../store.js';
 import { toast, openModal, closeModal, confirmDialog, esc, avatarHtml, el } from '../ui.js';
+import { icon } from '../icons.js';
 
 let keyword = '';
 let filter = 'all'; // all | cadre | male | female
@@ -22,7 +23,7 @@ function draw(view) {
 
   view.innerHTML = `
     <div class="search-box">
-      <span>🔍</span>
+      <span>${icon('search')}</span>
       <input id="stuSearch" placeholder="搜索姓名 / 学号" value="${esc(keyword)}" />
     </div>
     <div class="chips">
@@ -39,11 +40,11 @@ function draw(view) {
             <div style="font-weight:600;font-size:15px;">${esc(s.name)}${s.role ? `<span class="badge">${esc(s.role)}</span>` : ''}</div>
             <div style="font-size:12px;color:var(--text-2);margin-top:2px;">学号 ${esc(s.no)} · ${esc(s.gender)}</div>
           </div>
-          <span style="color:#D1D5DB;font-size:18px;">›</span>
+          <span style="color:var(--text-3);font-size:18px;">›</span>
         </div>
-      `).join('') : '<div class="empty"><div class="empty-icon">🗂️</div>暂无匹配学生</div>'}
+      `).join('') : `<div class="empty"><div class="empty-icon">${icon('search-x')}</div>暂无匹配学生</div>`}
     </div>
-    <button class="fab" id="addStuBtn">＋</button>
+    <button class="fab" id="addStuBtn" aria-label="添加学生">${icon('plus')}</button>
   `;
 
   view.querySelector('#stuSearch').oninput = e => {
@@ -72,11 +73,11 @@ function showDetail(view, id) {
       <div style="font-size:18px;font-weight:700;">${esc(s.name)}${s.role ? `<span class="badge">${esc(s.role)}</span>` : ''}</div>
       <div style="font-size:13px;color:var(--text-2);">学号 ${esc(s.no)} · ${esc(s.gender)} · 积分 <b style="color:var(--primary);">${score}</b></div>
     </div>
-    <div class="card" style="box-shadow:none;background:#F8FAFF;">
+    <div class="card" style="box-shadow:none;background:var(--surface-2);">
       <div style="font-size:13px;line-height:2;">
-        <div>📱 本人电话：${esc(s.phone || '—')}</div>
-        <div>👨‍👩‍👧 家长电话：${esc(s.parentPhone || '—')}</div>
-        <div>📝 评语备注：${esc(s.note || '暂无')}</div>
+        <div style="display:flex;gap:8px;align-items:center;">${icon('phone', { size: 18 })}<span>本人电话：${esc(s.phone || '—')}</span></div>
+        <div style="display:flex;gap:8px;align-items:center;">${icon('phone-call', { size: 18 })}<span>家长电话：${esc(s.parentPhone || '—')}</span></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">${icon('pencil', { size: 18 })}<span>评语备注：${esc(s.note || '暂无')}</span></div>
       </div>
     </div>
     <div style="display:flex;gap:10px;margin-top:6px;">
