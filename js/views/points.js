@@ -16,12 +16,7 @@ function draw(view) {
   view.innerHTML = `
     <div class="card">
       <div class="card-title"><span class="title-main">${icon('trophy')}积分排行榜</span></div>
-      ${ranking.length >= 3 ? `
-      <div class="rank-podium">
-        ${podium(top3[1], 'second', 2)}
-        ${podium(top3[0], 'first', 1)}
-        ${podium(top3[2], 'third', 3)}
-      </div>` : ''}
+      ${ranking.length ? podiumHtml(top3) : '<div class="empty" style="padding:16px 0;">暂无学生</div>'}
       ${rest.map((s, i) => `
         <div class="rank-row">
           <span class="rank-no">${i + 4}</span>
@@ -64,14 +59,28 @@ function draw(view) {
   });
 }
 
-function podium(s, cls, rank) {
-  if (!s) return '';
+function podiumHtml(top3) {
+  // 满 3 人时按领奖台视觉排列（亚军左 / 冠军中 / 季军右）；
+  // 不足 3 人时按自然顺序 1、2 排开，避免中间空位。
+  const entries = top3.length >= 3
+    ? [[top3[1], 2], [top3[0], 1], [top3[2], 3]]
+    : top3.map((s, i) => [s, i + 1]);
+  return `<div class="rank-podium">${entries.map(([s, r]) => podiumStep(s, r)).join('')}</div>`;
+}
+
+function podiumStep(s, rank) {
+  const cls = rank === 1 ? 'first' : rank === 2 ? 'second' : 'third';
+  const label = rank === 1 ? '冠军' : rank === 2 ? '亚军' : '季军';
+  const scoreCls = s.score >= 0 ? '' : ' neg';
   return `
-    <div class="podium-item ${cls}">
-      ${avatarHtml(s)}
-      <span class="podium-rank rank-tier-${rank}">${rank}</span>
-      <span class="podium-name">${esc(s.name)}</span>
-      <span class="podium-score">${s.score} 分</span>
+    <div class="podium-step ${cls}">
+      <div class="podium-top">
+        <span class="podium-rank rank-tier-${rank}">${rank}</span>
+        ${avatarHtml(s, rank === 1 ? 52 : 42)}
+        <span class="podium-name">${esc(s.name)}</span>
+        <span class="podium-score${scoreCls}">${s.score} 分</span>
+      </div>
+      <div class="podium-stand">${label}</div>
     </div>`;
 }
 

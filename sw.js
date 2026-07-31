@@ -1,7 +1,7 @@
 ﻿// 班级管家 Service Worker —— 缓存应用外壳，实现离线可用与秒开
 // 注意：每次修改静态资源（js/css）后，请把下面的版本号 +1，
 // 否则旧缓存不会被清掉，页面会一直显示旧内容。
-const CACHE = 'class-manager-v14';
+const CACHE = 'class-manager-v15';
 
 // 应用外壳：首次访问后即被缓存，之后断网也能打开
 const SHELL = [

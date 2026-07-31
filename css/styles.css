@@ -629,12 +629,18 @@ html[data-theme="dark"] .toast { color: #211E19; }
 .log-score.minus { color: var(--danger); }
 
 /* ---------- 30. 排行榜领奖台 ---------- */
-.rank-podium { margin-bottom: 12px; }
-.podium-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 0; border-bottom: 1px solid var(--divider);
+.rank-podium {
+  display: flex; align-items: flex-end; justify-content: center;
+  gap: 10px; padding: 22px 2px 8px; margin-bottom: 8px;
 }
-.podium-item:last-child { border-bottom: none; }
+.podium-step {
+  flex: 1; min-width: 0; display: flex; flex-direction: column;
+  align-items: center; gap: 8px;
+}
+.podium-top {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  width: 100%; text-align: center;
+}
 .podium-rank {
   width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center;
   justify-content: center; font-weight: 800; font-size: 13px; color: #FFF8F2; flex-shrink: 0;
@@ -644,8 +650,37 @@ html[data-theme="dark"] .toast { color: #211E19; }
 .podium-rank.rank-tier-1 { background: linear-gradient(135deg, #D9A441, #B97924); color: #FFF8F2; box-shadow: 0 2px 8px rgba(185, 121, 36, 0.24); }
 .podium-rank.rank-tier-2 { background: linear-gradient(135deg, #A8A49B, #7E7A70); color: #FFF8F2; box-shadow: 0 2px 6px rgba(126, 122, 112, 0.2); }
 .podium-rank.rank-tier-3 { background: linear-gradient(135deg, #B97B4A, #96572F); color: #FFF8F2; box-shadow: 0 2px 6px rgba(150, 87, 47, 0.2); }
-.podium-name { flex: 1; font-size: 14px; font-weight: 600; }
-.podium-score { font-weight: 700; font-size: 14px; color: var(--primary); font-variant-numeric: tabular-nums; }
+.podium-name {
+  font-size: 13px; font-weight: 600; color: var(--text);
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.podium-score { font-weight: 800; font-size: 13px; color: var(--primary); font-variant-numeric: tabular-nums; }
+.podium-score.neg { color: var(--danger); }
+.podium-stand {
+  width: 100%; border-radius: 14px 14px 10px 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-indent: 0.14em;
+  color: var(--text-2); background: var(--surface-3);
+  border: 1px solid var(--card-border);
+}
+.podium-step.first .podium-stand {
+  height: 118px;
+  background: linear-gradient(180deg, #D9A441, #B97924);
+  color: #FFF8F2; border-color: transparent;
+  box-shadow: 0 8px 22px rgba(185, 121, 36, 0.22);
+}
+.podium-step.second .podium-stand {
+  height: 88px;
+  background: linear-gradient(180deg, #B7B3A9, #8F8B81);
+  color: #FFF8F2; border-color: transparent;
+  box-shadow: 0 6px 16px rgba(120, 116, 106, 0.18);
+}
+.podium-step.third .podium-stand {
+  height: 74px;
+  background: linear-gradient(180deg, #C08A5C, #9A6539);
+  color: #FFF8F2; border-color: transparent;
+  box-shadow: 0 5px 14px rgba(154, 101, 57, 0.18);
+}
 
 /* ---------- 31. 班务备忘 ---------- */
 .memo-item {
