@@ -1,7 +1,7 @@
 // 考勤点名
 import * as store from '../store.js';
 import { toast, openModal, closeModal, esc, avatarHtml, confirmDialog } from '../ui.js';
-import { icon, iconBadge } from '../icons.js';
+import { icon } from '../icons.js';
 
 const STATUS = [
   { key: 'present', label: '出勤', cls: 'on-present' },

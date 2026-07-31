@@ -1,7 +1,7 @@
 // 班务备忘
 import * as store from '../store.js';
 import { toast, confirmDialog, esc } from '../ui.js';
-import { icon, iconBadge } from '../icons.js';
+import { icon } from '../icons.js';
 
 export function renderMemo(view) {
   draw(view);
@@ -57,7 +57,7 @@ function draw(view) {
 function memoItem(m) {
   return `
     <div class="memo-item">
-      <div class="memo-check ${m.done ? 'done' : ''}" data-id="${m.id}">${icon('check', { size: 14 })}</div>
+      <button class="memo-check ${m.done ? 'done' : ''}" type="button" data-id="${m.id}" aria-label="${m.done ? '标记为未完成' : '标记为已完成'}">${icon('check', { size: 14 })}</button>
       <div style="flex:1;min-width:0;">
         <div class="memo-text ${m.done ? 'done' : ''}" style="font-size:14px;">${esc(m.text)}</div>
         <div class="log-meta">${esc(m.time)}</div>

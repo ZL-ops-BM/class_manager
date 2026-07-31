@@ -1,7 +1,7 @@
 // 值日排班
 import * as store from '../store.js';
 import { toast, openModal, closeModal, esc } from '../ui.js';
-import { icon, iconBadge } from '../icons.js';
+import { icon } from '../icons.js';
 
 export function renderDuty(view) {
   draw(view);
@@ -15,7 +15,7 @@ function draw(view) {
 
   view.innerHTML = `
     <div class="card">
-      <div class="card-title"><span class="title-main">${iconBadge('broom', '#0891B2')}本周值日安排</span><span class="link" id="rotateBtn">${icon('rotate-cw', { size: 16 })} 轮换一周</span></div>
+      <div class="card-title"><span class="title-main">${icon('broom')}本周值日安排</span><span class="link" id="rotateBtn">${icon('rotate-cw', { size: 16 })} 轮换一周</span></div>
       ${duty.groups.map((g, i) => `
         <div class="duty-day">
           <div class="duty-label ${g.day === todayName ? 'today' : ''}">

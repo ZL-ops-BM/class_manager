@@ -41,6 +41,7 @@ function renderRoute() {
   if (!route) { navigate('/dashboard'); return; }
 
   const view = document.getElementById('view');
+  view.dataset.route = path.split('/')[1] || 'dashboard';
   view.innerHTML = '';
   view.scrollTop = 0;
   window.scrollTo(0, 0);

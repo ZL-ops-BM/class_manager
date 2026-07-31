@@ -1,14 +1,14 @@
 // 成绩管理：考试列表 / 成绩录入 / 统计排名 / 学生趋势
 import * as store from '../store.js';
 import { toast, openModal, closeModal, confirmDialog, esc } from '../ui.js';
-import { icon, iconBadge } from '../icons.js';
+import { icon } from '../icons.js';
 import { navigate } from '../router.js';
 
 export function renderGrades(view) {
   const exams = store.getExams();
   view.innerHTML = `
     <div class="card">
-      <div class="card-title"><span class="title-main">${iconBadge('bar-chart', '#EF4444')}考试列表</span><span class="link" id="addExam">${icon('plus', { size: 16 })} 新建考试</span></div>
+      <div class="card-title"><span class="title-main">${icon('bar-chart')}考试列表</span><span class="link" id="addExam">${icon('plus', { size: 16 })} 新建考试</span></div>
       ${exams.length ? exams.map(e => `
         <div class="list-item" data-id="${e.id}" style="cursor:pointer;">
           <div class="avatar" style="border-radius:12px;background:linear-gradient(135deg,#F59E0B,#EF4444);">${icon('file-text', { size: 22 })}</div>
@@ -21,7 +21,7 @@ export function renderGrades(view) {
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="title-main">${iconBadge('trending-up', '#10B981')}学生成绩趋势</span></div>
+      <div class="card-title"><span class="title-main">${icon('trending-up')}学生成绩趋势</span></div>
       <select class="form-select" id="trendStu">
         <option value="">选择学生查看总分趋势</option>
         ${store.getStudents().map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('')}

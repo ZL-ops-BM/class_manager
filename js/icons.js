@@ -1,13 +1,13 @@
-// 线性 SVG 图标系统（Lucide 风格：24x24 viewBox、stroke-width 1.8、currentColor 跟随主题）
-// 统一设计语言：圆角端点、等宽描边、简约几何，矢量无限缩放不模糊。
-// 排名相关元素不再使用图标，由视图层直接渲染数字；medal() 保留空字符串以兼容旧调用。
+﻿// 线性 SVG 图标系统（Lucide 风格 · 精修版）
+// 统一设计语言：圆角端点、等宽描边 1.6、currentColor 跟随主题
+// 排名相关元素不再使用图标，由视图层直接渲染数字；medal() 保留空字符串以兼容旧调用
 
 const PATHS = {
-  home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/>',
+  home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
   users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
   'clipboard-check': '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
   'clipboard-list': '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M8 10h.01M12 10h4M8 14h.01M12 14h4M8 18h.01M12 18h4"/>',
-  star: '<path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>',
+  star: '<path d="M11.48 3.5a.65.65 0 0 1 1.04 0l2.67 4.89 5.36.85a.65.65 0 0 1 .36 1.1l-3.84 3.82.92 5.4a.65.65 0 0 1-.94.68L12 17.77l-5.05 2.47a.65.65 0 0 1-.94-.68l.92-5.4-3.84-3.82a.65.65 0 0 1 .36-1.1l5.36-.85z"/>',
   'layout-grid': '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/>',
   zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
   pin: '<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',
@@ -38,7 +38,7 @@ const PATHS = {
   trophy: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>',
   'thumbs-up': '<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88z"/>',
   'thumbs-down': '<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88z"/>',
-  'bar-chart': '<line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>',
+  'bar-chart': '<path d="M8 20V10"/><path d="M12 20V4"/><path d="M16 20v-6"/>',
   'trending-up': '<path d="M22 7 13.5 15.5l-5-5L2 17"/><path d="M16 7h6v6"/>',
   'file-text': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/>',
   lightbulb: '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/>',
@@ -46,35 +46,23 @@ const PATHS = {
   'dice-5': '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.2"/><circle cx="16" cy="8" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="8" cy="16" r="1.2"/><circle cx="16" cy="16" r="1.2"/>',
   'loader-circle': '<path d="M21 12a9 9 0 1 1-6.219-8.56"/>',
   'circle-help': '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+  calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  'alert-circle': '<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>',
+  'bell-ring': '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/>',
 };
 
-// 排名专属背景色（金/银/铜），供视图层 .rank-no 元素配合使用
+// 排名专属背景色（金 / 银 / 铜），供视图层 .rank-no 元素配合使用
 export const TIERS = { gold: '#F59E0B', silver: '#9CA3AF', bronze: '#B45309' };
 
 /**
- * 生成线性 SVG 图标字符串。
+ * 生成线性 SVG 图标字符串
  * @param {string} name 图标名
- * @param {{size?: number, color?: string, strokeWidth?: number}} opts
+ * @param {{size?: number, tier?: 'gold'|'silver'|'bronze', strokeWidth?: number}} opts
  */
 export function icon(name, opts = {}) {
   const size = opts.size || 24;
-  const sw = opts.strokeWidth || 1.8;
+  const sw = opts.strokeWidth || 1.6;
   const body = PATHS[name];
   if (!body) return '';
-  const style = opts.color ? ` style="color:${opts.color}"` : '';
-  return `<svg class="icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"${style}>${body}</svg>`;
-}
-
-/**
- * 带彩色圆形底托的图标徽章，用于 card-title 等场景。
- * @param {string} name 图标名
- * @param {string} color 底托色（如 '#10B981'）
- * @param {{size?: number, iconSize?: number, strokeWidth?: number}} opts
- */
-export function iconBadge(name, color, opts = {}) {
-  const badgeSize = opts.size || 28;
-  const iconSize = opts.iconSize || 16;
-  const body = PATHS[name];
-  if (!body) return '';
-  return `<span class="icon-badge" style="--badge-color:${color};width:${badgeSize}px;height:${badgeSize}px;"><svg class="icon" width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${opts.strokeWidth || 1.5}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg></span>`;
+  return `<svg class="icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
 }
