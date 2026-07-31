@@ -52,7 +52,7 @@ const PATHS = {
 };
 
 // 排名专属背景色（金 / 银 / 铜），供视图层 .rank-no 元素配合使用
-export const TIERS = { gold: '#F59E0B', silver: '#9CA3AF', bronze: '#B45309' };
+export const TIERS = { gold: '#D9A441', silver: '#A8A49B', bronze: '#B06A3C' };
 
 /**
  * 生成线性 SVG 图标字符串

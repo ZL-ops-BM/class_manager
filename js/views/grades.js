@@ -11,7 +11,7 @@ export function renderGrades(view) {
       <div class="card-title"><span class="title-main">${icon('bar-chart')}考试列表</span><span class="link" id="addExam">${icon('plus', { size: 16 })} 新建考试</span></div>
       ${exams.length ? exams.map(e => `
         <div class="list-item" data-id="${e.id}" style="cursor:pointer;">
-          <div class="avatar" style="border-radius:12px;background:linear-gradient(135deg,#F59E0B,#EF4444);">${icon('file-text', { size: 22 })}</div>
+    <div class="avatar" style="border-radius:12px;background:linear-gradient(135deg,#C86B45,#A94B28);">${icon('file-text', { size: 22 })}</div>
           <div style="flex:1;">
             <div style="font-weight:600;font-size:15px;">${esc(e.name)}</div>
             <div style="font-size:12px;color:var(--text-2);margin-top:2px;">${esc(e.date)} · ${e.subjects.length} 科目</div>

@@ -209,5 +209,5 @@ export function applyTheme(mode) {
   const dark = mode === 'dark' || (mode !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
   document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', dark ? '#0F172A' : '#2563EB');
+  if (meta) meta.setAttribute('content', dark ? '#151412' : '#F6F5F2');
 }
