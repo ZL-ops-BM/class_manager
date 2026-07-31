@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#2563EB" />
   <meta name="color-scheme" content="light dark" />
   <script>
-    // 主题预渲染：在首屏绘制前写入 data-theme，避免深浅色切换时白屏闪烁（FOUC）
+    // 涓婚棰勬覆鏌擄細鍦ㄩ灞忕粯鍒跺墠鍐欏叆 data-theme锛岄伩鍏嶆繁娴呰壊鍒囨崲鏃剁櫧灞忛棯鐑侊紙FOUC锛?
     (function () {
       try {
         var m = localStorage.getItem('class-manager-theme') || 'system';
@@ -15,51 +15,51 @@
       } catch (e) {}
     })();
   </script>
-  <title>班级管家 · 高中班主任管理系统</title>
+  <title>鐝骇绠″ 路 楂樹腑鐝富浠荤鐞嗙郴缁?/title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%232563EB'/%3E%3Cg fill='white'%3E%3Crect x='26' y='26' width='20' height='20' rx='5'/%3E%3Crect x='54' y='26' width='20' height='20' rx='5'/%3E%3Crect x='26' y='54' width='20' height='20' rx='5'/%3E%3Crect x='54' y='54' width='20' height='20' rx='5'/%3E%3C/g%3E%3C/svg%3E" />
-  <!-- PWA：安装为独立 App -->
+  <!-- PWA锛氬畨瑁呬负鐙珛 App -->
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="班级管家" />
+  <meta name="apple-mobile-web-app-title" content="鐝骇绠″" />
   <link rel="apple-touch-icon" href="icon.svg" />
-  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/styles.css?v=4" />
 </head>
 <body>
   <div id="app">
-    <!-- 顶部标题栏 -->
+    <!-- 椤堕儴鏍囬鏍?-->
     <header class="topbar" id="topbar">
       <div class="topbar-inner">
-        <span class="topbar-back hidden" id="topbarBack"><svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></span>
-        <h1 class="topbar-title" id="topbarTitle">班级管家</h1>
+        <span class="topbar-back hidden" id="topbarBack"><svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></span>
+        <h1 class="topbar-title" id="topbarTitle">鐝骇绠″</h1>
         <span class="topbar-action" id="topbarAction"></span>
       </div>
     </header>
 
-    <!-- 视图容器 -->
+    <!-- 瑙嗗浘瀹瑰櫒 -->
     <main id="view" class="view"></main>
 
-    <!-- 底部导航 -->
+    <!-- 搴曢儴瀵艰埅 -->
     <nav class="tabbar" id="tabbar">
       <a href="#/dashboard" class="tab" data-tab="dashboard">
-        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span><span class="tab-label">首页</span>
+        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span><span class="tab-label">棣栭〉</span>
       </a>
       <a href="#/students" class="tab" data-tab="students">
-        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="tab-label">学生</span>
+        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="tab-label">瀛︾敓</span>
       </a>
       <a href="#/attendance" class="tab" data-tab="attendance">
-        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span><span class="tab-label">考勤</span>
+        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span><span class="tab-label">鑰冨嫟</span>
       </a>
       <a href="#/points" class="tab" data-tab="points">
-        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="tab-label">积分</span>
+        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="tab-label">绉垎</span>
       </a>
       <a href="#/more" class="tab" data-tab="more">
-        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="tab-label">更多</span>
+        <span class="tab-icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="tab-label">鏇村</span>
       </a>
     </nav>
 
-    <!-- 全局弹层 -->
+    <!-- 鍏ㄥ眬寮瑰眰 -->
     <div class="modal-mask hidden" id="modalMask">
       <div class="modal" id="modalBox"></div>
     </div>
@@ -68,9 +68,9 @@
     <div class="toast hidden" id="toast"></div>
   </div>
 
-  <script type="module" src="js/app.js?v=3"></script>
+  <script type="module" src="js/app.js?v=4"></script>
   <script>
-    // 注册 Service Worker，使 App 可离线使用
+    // 娉ㄥ唽 Service Worker锛屼娇 App 鍙绾夸娇鐢?
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').catch(console.error);
