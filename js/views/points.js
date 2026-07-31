@@ -1,7 +1,7 @@
 // 积分评价：排行榜 / 评价 / 规则管理 / 流水
 import * as store from '../store.js';
 import { toast, openModal, closeModal, confirmDialog, esc, avatarHtml } from '../ui.js';
-import { icon } from '../icons.js';
+import { icon, iconBadge } from '../icons.js';
 
 export function renderPoints(view) {
   draw(view);
@@ -15,7 +15,7 @@ function draw(view) {
 
   view.innerHTML = `
     <div class="card">
-      <div class="card-title"><span class="title-main">${icon('trophy')}积分排行榜</span></div>
+      <div class="card-title"><span class="title-main">${iconBadge('trophy', '#F59E0B')}积分排行榜</span></div>
       ${ranking.length >= 3 ? `
       <div class="rank-podium">
         ${podium(top3[1], 'second', 2)}

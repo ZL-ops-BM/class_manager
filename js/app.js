@@ -1,7 +1,6 @@
 // 应用入口
 import { initStore, getTheme, applyTheme } from './store.js';
 import { register, startRouter } from './router.js';
-import { renderTabIcons } from './icons.js';
 import { renderDashboard } from './views/dashboard.js';
 import { renderStudents } from './views/students.js';
 import { renderAttendance } from './views/attendance.js';
@@ -15,7 +14,6 @@ import { renderMore } from './views/more.js';
 
 initStore();
 applyTheme(getTheme());
-renderTabIcons();
 try {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
     if (getTheme() === 'system') applyTheme('system');

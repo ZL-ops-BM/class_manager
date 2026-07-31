@@ -1,7 +1,7 @@
 // 班务备忘
 import * as store from '../store.js';
 import { toast, confirmDialog, esc } from '../ui.js';
-import { icon } from '../icons.js';
+import { icon, iconBadge } from '../icons.js';
 
 export function renderMemo(view) {
   draw(view);

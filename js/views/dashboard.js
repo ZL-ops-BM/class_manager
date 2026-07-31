@@ -1,7 +1,7 @@
 // 首页仪表盘
 import * as store from '../store.js';
 import { esc, avatarHtml } from '../ui.js';
-import { icon } from '../icons.js';
+import { icon, iconBadge } from '../icons.js';
 
 export function renderDashboard(view) {
   const info = store.getClassInfo();
@@ -38,17 +38,17 @@ export function renderDashboard(view) {
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="title-main">${icon('zap')}快捷入口</span></div>
+      <div class="card-title"><span class="title-main">${iconBadge('zap', '#2563EB')}快捷入口</span></div>
       <div class="entry-grid">
-        <a class="entry-item" href="#/attendance"><span class="entry-icon">${icon('clipboard-check')}</span><span class="entry-label">考勤点名</span></a>
-        <a class="entry-item" href="#/random"><span class="entry-icon">${icon('dice-5')}</span><span class="entry-label">随机点名</span></a>
-        <a class="entry-item" href="#/points"><span class="entry-icon">${icon('star')}</span><span class="entry-label">积分评价</span></a>
-        <a class="entry-item" href="#/grades"><span class="entry-icon">${icon('bar-chart')}</span><span class="entry-label">成绩管理</span></a>
+        <a class="entry-item" href="#/attendance"><span class="entry-icon e-green">${icon('clipboard-check')}</span><span class="entry-label">考勤点名</span></a>
+        <a class="entry-item" href="#/random"><span class="entry-icon e-violet">${icon('dice-5')}</span><span class="entry-label">随机点名</span></a>
+        <a class="entry-item" href="#/points"><span class="entry-icon e-amber">${icon('star')}</span><span class="entry-label">积分评价</span></a>
+        <a class="entry-item" href="#/grades"><span class="entry-icon e-rose">${icon('bar-chart')}</span><span class="entry-label">成绩管理</span></a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="title-main">${icon('clipboard-list')}今日待办</span><a class="link" href="#/memo" style="text-decoration:none;">全部 ›</a></div>
+      <div class="card-title"><span class="title-main">${iconBadge('clipboard-list', '#64748B')}今日待办</span><a class="link" href="#/memo" style="text-decoration:none;">全部 ›</a></div>
       ${todos.length ? todos.map(t => `
         <a href="${t.link}" style="text-decoration:none;color:inherit;">
           <div class="list-item">
@@ -60,7 +60,7 @@ export function renderDashboard(view) {
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="title-main">${icon('broom')}今日值日${todayDuty ? ' · ' + esc(todayDuty.day) : ''}</span><a class="link" href="#/duty" style="text-decoration:none;">排班表 ›</a></div>
+      <div class="card-title"><span class="title-main">${iconBadge('broom', '#0891B2')}今日值日${todayDuty ? ' · ' + esc(todayDuty.day) : ''}</span><a class="link" href="#/duty" style="text-decoration:none;">排班表 ›</a></div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;">
         ${todayDuty && todayDuty.members.length ? todayDuty.members.map(id => {
           const s = store.getStudent(id);
@@ -71,7 +71,7 @@ export function renderDashboard(view) {
 
     ${ranking.length ? `
     <div class="card">
-      <div class="card-title"><span class="title-main">${icon('trophy')}积分前三</span><a class="link" href="#/points" style="text-decoration:none;">排行榜 ›</a></div>
+      <div class="card-title"><span class="title-main">${iconBadge('trophy', '#F59E0B')}积分前三</span><a class="link" href="#/points" style="text-decoration:none;">排行榜 ›</a></div>
       ${ranking.slice(0, 3).map((s, i) => `
         <div class="rank-row">
           <span class="rank-no rank-tier-${i + 1}">${i + 1}</span>

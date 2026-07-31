@@ -1,7 +1,7 @@
 // 随机点名
 import * as store from '../store.js';
 import { esc } from '../ui.js';
-import { icon } from '../icons.js';
+import { icon, iconBadge } from '../icons.js';
 
 let picked = new Set();
 let rolling = false;

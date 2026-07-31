@@ -1,7 +1,7 @@
 // 学生档案管理
 import * as store from '../store.js';
 import { toast, openModal, closeModal, confirmDialog, esc, avatarHtml, el } from '../ui.js';
-import { icon } from '../icons.js';
+import { icon, iconBadge } from '../icons.js';
 
 let keyword = '';
 let filter = 'all'; // all | cadre | male | female

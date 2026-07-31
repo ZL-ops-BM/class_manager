@@ -1,25 +1,25 @@
 // 更多中心：子功能入口 + 数据管理 + 班级设置
 import * as store from '../store.js';
 import { toast, openModal, closeModal, confirmDialog, esc } from '../ui.js';
-import { icon } from '../icons.js';
+import { icon, iconBadge } from '../icons.js';
 
 export function renderMore(view) {
   const info = store.getClassInfo();
   view.innerHTML = `
     <div class="card">
-      <div class="card-title"><span class="title-main">${icon('layout-grid')}班务工具</span></div>
+      <div class="card-title"><span class="title-main">${iconBadge('layout-grid', '#2563EB')}班务工具</span></div>
       <div class="entry-grid cols-3">
-        <a class="entry-item" href="#/grades"><span class="entry-icon">${icon('bar-chart')}</span><span class="entry-label">成绩管理</span></a>
-        <a class="entry-item" href="#/random"><span class="entry-icon">${icon('dice-5')}</span><span class="entry-label">随机点名</span></a>
-        <a class="entry-item" href="#/duty"><span class="entry-icon">${icon('broom')}</span><span class="entry-label">值日排班</span></a>
-        <a class="entry-item" href="#/seating"><span class="entry-icon">${icon('armchair')}</span><span class="entry-label">座位表</span></a>
-        <a class="entry-item" href="#/memo"><span class="entry-icon">${icon('clipboard-list')}</span><span class="entry-label">班务备忘</span></a>
-        <a class="entry-item" href="#/attendance"><span class="entry-icon">${icon('clipboard-check')}</span><span class="entry-label">考勤点名</span></a>
+        <a class="entry-item" href="#/grades"><span class="entry-icon e-rose">${icon('bar-chart')}</span><span class="entry-label">成绩管理</span></a>
+        <a class="entry-item" href="#/random"><span class="entry-icon e-violet">${icon('dice-5')}</span><span class="entry-label">随机点名</span></a>
+        <a class="entry-item" href="#/duty"><span class="entry-icon e-teal">${icon('broom')}</span><span class="entry-label">值日排班</span></a>
+        <a class="entry-item" href="#/seating"><span class="entry-icon e-blue">${icon('armchair')}</span><span class="entry-label">座位表</span></a>
+        <a class="entry-item" href="#/memo"><span class="entry-icon e-slate">${icon('clipboard-list')}</span><span class="entry-label">班务备忘</span></a>
+        <a class="entry-item" href="#/attendance"><span class="entry-icon e-green">${icon('clipboard-check')}</span><span class="entry-label">考勤点名</span></a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="title-main">${icon('settings')}班级设置</span></div>
+      <div class="card-title"><span class="title-main">${iconBadge('settings', '#64748B')}班级设置</span></div>
       <div class="list-item">
         <span>${icon('sun-moon', { size: 20 })}</span>
         <div style="flex:1;">
@@ -43,7 +43,7 @@ export function renderMore(view) {
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="title-main">${icon('database')}数据管理</span></div>
+      <div class="card-title"><span class="title-main">${iconBadge('database', '#0891B2')}数据管理</span></div>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <button class="btn btn-ghost btn-block" id="exportBtn">${icon('upload', { size: 18 })} 导出数据备份（JSON）</button>
         <button class="btn btn-ghost btn-block" id="importBtn">${icon('download', { size: 18 })} 导入数据备份</button>
