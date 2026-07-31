@@ -24,9 +24,24 @@ export function renderDashboard(view) {
 
   view.innerHTML = `
     <div class="hero dashboard-hero">
-      <div class="hero-class">${esc(info.name)}</div>
-      <div class="hero-date">${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 · ${dayNames[d.getDay()]} · ${esc(info.teacher)}，您好</div>
-      <div class="hero-tip">「${esc(info.motto)}」</div>
+      <div class="hero-topline">
+        <span class="hero-kicker">${icon('graduation-cap', { size: 16 })} 班级概览</span>
+        <span class="hero-today">今日</span>
+      </div>
+      <div class="hero-body">
+        <div class="hero-primary">
+          <h2 class="hero-class">${esc(info.name)}</h2>
+          <div class="hero-meta">
+            <span class="hero-meta-item">${icon('calendar', { size: 16 })}<time datetime="${today}">${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 · ${dayNames[d.getDay()]}</time></span>
+            <span class="hero-meta-divider" aria-hidden="true"></span>
+            <span>${esc(info.teacher)}，您好</span>
+          </div>
+        </div>
+        <div class="hero-motto">
+          <span class="hero-motto-label">班训</span>
+          <p>「${esc(info.motto)}」</p>
+        </div>
+      </div>
     </div>
 
     <div class="card stats-card">
